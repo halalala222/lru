@@ -100,3 +100,11 @@ func (h *HashLinkLru) getOrDefault(key string, defaultValue any) any {
 
 	return node.value
 }
+
+func (h *HashLinkLru) putValue(key string, value any) {
+	if key == "" || value == nil {
+		return
+	}
+
+	lru.kv[key] = h.initNode(key, value)
+}
