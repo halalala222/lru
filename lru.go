@@ -46,7 +46,3 @@ func (h *HashLinkLru) linkNodeLast(node *Node) {
 		last.after = node
 	}
 }
-
-func Test() {
-	println(1)
-}
