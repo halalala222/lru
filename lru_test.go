@@ -65,8 +65,29 @@ func TestGet(t *testing.T) {
 		lruCache.putValue(testcase.key, testcase.value)
 	}
 
+	t.Log(lruCache)
+
 	expectValue := testCaseData[2].expectValue
 	getValue := lruCache.get(testCaseData[2].key)
+
+	t.Log(lruCache)
+
+	headNode := lruCache.head
+
+	if lruCache.tail != nil {
+		t.Error("tail node after node is not nil")
+	}
+
+	for {
+		t.Log(headNode)
+		if headNode != nil {
+			headNode = headNode.after
+		}
+		if headNode.after == nil {
+			t.Log(headNode)
+			break
+		}
+	}
 
 	if expectValue != getValue {
 		t.Errorf("expect : %v,but get %v", expectValue, getValue)
