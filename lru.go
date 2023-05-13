@@ -41,9 +41,10 @@ func (h *HashLinkLru) linkNodeLast(node *Node) {
 	lru.tail = node
 	if linkIsEmpty := last == nil; linkIsEmpty {
 		lru.head = node
+	} else {
+		node.before = last
+		last.after = node
 	}
-	node.before = last
-	last.after = node
 }
 
 func Test() {
