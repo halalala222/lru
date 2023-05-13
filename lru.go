@@ -46,3 +46,29 @@ func (h *HashLinkLru) linkNodeLast(node *Node) {
 		last.after = node
 	}
 }
+
+func (h *HashLinkLru) get(key string) any {
+	var (
+		node *Node
+		ok   bool
+	)
+
+	if node, ok = lru.kv[key]; !ok {
+		return nil
+	}
+
+	return node.value
+}
+
+func (h *HashLinkLru) getOrDefault(key string, defaultValue any) any {
+	var (
+		node *Node
+		ok   bool
+	)
+
+	if node, ok = lru.kv[key]; !ok {
+		return defaultValue
+	}
+
+	return node.value
+}
