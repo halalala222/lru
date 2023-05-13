@@ -74,7 +74,7 @@ func TestGet(t *testing.T) {
 
 	headNode := lruCache.head
 
-	if lruCache.tail != nil {
+	if lruCache.tail.after != nil {
 		t.Error("tail node after node is not nil")
 	}
 
