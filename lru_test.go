@@ -49,9 +49,26 @@ func TestPutValue(t *testing.T) {
 	for _, testcase := range testCaseData {
 		lruCache.putValue(testcase.key, testcase.value)
 	}
+
 	t.Log(lruCache.kv)
+
 	for head := lruCache.head; head != nil; head = head.after {
 		t.Log(head)
 		t.Log(head.key, head.value)
+	}
+}
+
+func TestGet(t *testing.T) {
+	lruCache := InitLRU()
+
+	for _, testcase := range testCaseData {
+		lruCache.putValue(testcase.key, testcase.value)
+	}
+
+	expectValue := testCaseData[2].expectValue
+	getValue := lruCache.get(testCaseData[2].key)
+
+	if expectValue != getValue {
+		t.Errorf("expect : %v,but get %v", expectValue, getValue)
 	}
 }
