@@ -43,3 +43,15 @@ func TestLinkNodeLast(t *testing.T) {
 	lruCache.linkNodeLast(lru.initNode("test", 1))
 	t.Log(lruCache)
 }
+
+func TestPutValue(t *testing.T) {
+	lruCache := InitLRU()
+	for _, testcase := range testCaseData {
+		lruCache.putValue(testcase.key, testcase.value)
+	}
+	t.Log(lruCache.kv)
+	for head := lruCache.head; head != nil; head = head.after {
+		t.Log(head)
+		t.Log(head.key, head.value)
+	}
+}
