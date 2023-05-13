@@ -55,6 +55,8 @@ func (h *HashLinkLru) afterNodeAccess(node *Node) {
 		lastNode   = lru.tail
 	)
 
+	node.after = nil
+
 	if isLastNode := node == lru.tail; isLastNode {
 		return
 	}
