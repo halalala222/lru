@@ -47,6 +47,30 @@ func (h *HashLinkLru) linkNodeLast(node *Node) {
 	}
 }
 
+// afterNodeAccess hook method used at access the node data
+func (h *HashLinkLru) afterNodeAccess(node *Node) {
+	var (
+		beforeNode = node.before
+		afterNode  = node.after
+		lastNode   = lru.tail
+	)
+
+	if isLastNode := node == lru.tail; isLastNode {
+		return
+	}
+
+	if beforeNode == nil {
+		lru.head = afterNode
+	} else {
+		beforeNode.after = afterNode
+	}
+
+	lastNode.after = node
+	node.before = lastNode
+
+	lru.tail = node
+}
+
 func (h *HashLinkLru) get(key string) any {
 	var (
 		node *Node
