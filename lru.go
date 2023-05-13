@@ -81,6 +81,8 @@ func (h *HashLinkLru) get(key string) any {
 		return nil
 	}
 
+	h.afterNodeAccess(node)
+
 	return node.value
 }
 
@@ -93,6 +95,8 @@ func (h *HashLinkLru) getOrDefault(key string, defaultValue any) any {
 	if node, ok = lru.kv[key]; !ok {
 		return defaultValue
 	}
+
+	h.afterNodeAccess(node)
 
 	return node.value
 }
