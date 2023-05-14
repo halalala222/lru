@@ -120,3 +120,28 @@ func (h *HashLinkLru) putValue(key string, value any) {
 
 	h.linkNodeLast(node)
 }
+
+func (h *HashLinkLru) removeNode(node *Node) {
+	if _, ok := lru.kv[node.key]; !ok {
+		return
+	}
+
+	delete(lru.kv, node.key)
+
+	var (
+		before = node.before
+		after  = node.after
+	)
+
+	if before != nil {
+		before.after = after
+	} else {
+		lru.head = after
+	}
+
+	if after != nil {
+		after.before = before
+	} else {
+		lru.tail = before
+	}
+}
