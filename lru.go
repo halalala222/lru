@@ -1,9 +1,11 @@
 package lru
 
 type HashLinkLru struct {
-	head *Node
-	tail *Node
-	kv   map[string]*Node
+	head     *Node
+	tail     *Node
+	kv       map[string]*Node
+	capacity int
+	size     int
 }
 
 var lru = &HashLinkLru{
