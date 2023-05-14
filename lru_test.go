@@ -155,3 +155,22 @@ func TestPutValueWithHook(t *testing.T) {
 		printFormat(lruCache.head, t)
 	}
 }
+
+func TestGetWithPut(t *testing.T) {
+	lruCache := InitLRU(testCapacity)
+
+	for i := 0; i < 3; i++ {
+		node := testCaseData[i]
+		lruCache.putValue(node.key, node.value)
+		t.Logf("i : %v", i)
+		printFormat(lruCache.head, t)
+	}
+
+	_ = lruCache.get(lruCache.head.after.key)
+	t.Log("after get index : 1 data value")
+	printFormat(lruCache.head, t)
+
+	lruCache.putValue(testCaseData[3].key, testCaseData[3].value)
+	t.Log("after put index : 3 data value")
+	printFormat(lruCache.head, t)
+}
