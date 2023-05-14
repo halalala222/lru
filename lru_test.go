@@ -4,6 +4,8 @@ import (
 	"testing"
 )
 
+const testCapacity = 3
+
 type kv struct {
 	key         string
 	value       any
@@ -39,13 +41,13 @@ var testCaseData = []kv{
 }
 
 func TestLinkNodeLast(t *testing.T) {
-	lruCache := InitLRU()
+	lruCache := InitLRU(testCapacity)
 	lruCache.linkNodeLast(lru.initNode("test", 1))
 	t.Log(lruCache)
 }
 
 func TestPutValue(t *testing.T) {
-	lruCache := InitLRU()
+	lruCache := InitLRU(testCapacity)
 	for _, testcase := range testCaseData {
 		lruCache.putValue(testcase.key, testcase.value)
 	}
@@ -59,7 +61,7 @@ func TestPutValue(t *testing.T) {
 }
 
 func TestGet(t *testing.T) {
-	lruCache := InitLRU()
+	lruCache := InitLRU(testCapacity)
 
 	for _, testcase := range testCaseData {
 		lruCache.putValue(testcase.key, testcase.value)
