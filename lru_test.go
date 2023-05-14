@@ -95,3 +95,49 @@ func TestGet(t *testing.T) {
 		t.Errorf("expect : %v,but get %v", expectValue, getValue)
 	}
 }
+
+func TestRemoveNode(t *testing.T) {
+	lruCache := InitLRU(testCapacity)
+
+	for _, testcase := range testCaseData {
+		lruCache.putValue(testcase.key, testcase.value)
+	}
+
+	t.Log(lruCache)
+
+	headNode := lru.head
+	thirdNode := headNode.after.after
+
+	lruCache.removeNode(thirdNode)
+
+	printFormat(headNode, t)
+
+	lruCache.removeNode(headNode)
+
+	printFormat(lruCache.head, t)
+
+	t.Logf("\n")
+
+	lastNode := lru.tail
+
+	lruCache.removeNode(lastNode)
+
+	printFormat(lruCache.head, t)
+}
+
+func printFormat(headNode *Node, t *testing.T) {
+	for head := headNode; head != nil; head = head.after {
+		if head.before != nil && head.after != nil {
+			t.Logf("current node : %p,before node : %p,after node : %p,k : %v", &(*head), &(*head.before), &(*head.after), head.key)
+		}
+
+		if head.before == nil && head.after != nil {
+			t.Logf("current node : %p,before node : <nil>,after node : %p,k : %v", &(*head), &(*head.after), head.key)
+		}
+
+		if head.before != nil && head.after == nil {
+			t.Logf("current node : %p,before node : %p,after node : <nil>,k : %v", &(*head), &(*head.before), head.key)
+		}
+	}
+	t.Logf("\n")
+}
