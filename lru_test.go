@@ -137,6 +137,10 @@ func printFormat(headNode *Node, t *testing.T) {
 		if head.before != nil && head.after == nil {
 			t.Logf("current node : %p,before node : %p,after node : <nil>,k : %v", &(*head), &(*head.before), head.key)
 		}
+
+		if head.before == nil && head.after == nil {
+			t.Logf("current node : %p,before node : <nil>,after node : <nil>,k : %v", &(*head), head.key)
+		}
 	}
 	t.Logf("\n")
 }
