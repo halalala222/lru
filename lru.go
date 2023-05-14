@@ -78,6 +78,13 @@ func (h *HashLinkLru) afterNodeAccess(node *Node) {
 	lru.tail = node
 }
 
+// afterInsertion hook method used at after put value
+func (h *HashLinkLru) afterInsertion() {
+	if h.isRemoveEldestEntry() {
+		h.removeNode(lru.head)
+	}
+}
+
 func (h *HashLinkLru) get(key string) any {
 	var (
 		node *Node
