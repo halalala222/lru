@@ -116,6 +116,7 @@ func (h *HashLinkLru) putValue(key string, value any) {
 	node := h.initNode(key, value)
 
 	lru.kv[key] = node
+	lru.size++
 
 	h.linkNodeLast(node)
 }
