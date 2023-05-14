@@ -144,3 +144,14 @@ func printFormat(headNode *Node, t *testing.T) {
 	}
 	t.Logf("\n")
 }
+
+func TestPutValueWithHook(t *testing.T) {
+	lruCache := InitLRU(testCapacity)
+
+	for i := 0; i < 5; i++ {
+		node := testCaseData[i]
+		lruCache.putValue(node.key, node.value)
+		t.Logf("i : %v", i)
+		printFormat(lruCache.head, t)
+	}
+}
