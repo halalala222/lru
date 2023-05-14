@@ -145,3 +145,7 @@ func (h *HashLinkLru) removeNode(node *Node) {
 		lru.tail = before
 	}
 }
+
+func (h *HashLinkLru) isRemoveEldestEntry() bool {
+	return lru.size > lru.capacity
+}
