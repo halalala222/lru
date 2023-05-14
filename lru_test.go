@@ -107,21 +107,20 @@ func TestRemoveNode(t *testing.T) {
 
 	headNode := lru.head
 	thirdNode := headNode.after.after
-
 	lruCache.removeNode(thirdNode)
-
+	t.Log("remove third node")
+	t.Log(lruCache)
 	printFormat(headNode, t)
 
 	lruCache.removeNode(headNode)
-
+	t.Log("remove first node")
+	t.Log(lruCache)
 	printFormat(lruCache.head, t)
 
-	t.Logf("\n")
-
 	lastNode := lru.tail
-
 	lruCache.removeNode(lastNode)
-
+	t.Log("remove first node")
+	t.Log(lruCache)
 	printFormat(lruCache.head, t)
 }
 
