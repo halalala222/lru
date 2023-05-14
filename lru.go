@@ -9,12 +9,15 @@ type HashLinkLru struct {
 }
 
 var lru = &HashLinkLru{
-	head: nil,
-	tail: nil,
-	kv:   make(map[string]*Node),
+	head:     nil,
+	tail:     nil,
+	kv:       make(map[string]*Node),
+	size:     0,
+	capacity: 0,
 }
 
-func InitLRU() *HashLinkLru {
+func InitLRU(capacity int) *HashLinkLru {
+	lru.capacity = capacity
 	return lru
 }
 
