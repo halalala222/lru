@@ -126,6 +126,8 @@ func (h *HashLinkLru) putValue(key string, value any) {
 	lru.size++
 
 	h.linkNodeLast(node)
+
+	h.afterInsertion()
 }
 
 func (h *HashLinkLru) removeNode(node *Node) {
