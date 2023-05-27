@@ -22,12 +22,10 @@ func InitLRU(capacity int) *HashLinkLru {
 }
 
 type Node struct {
-	size     int
-	capacity int
-	key      string
-	before   *Node
-	after    *Node
-	value    any
+	key    string
+	before *Node
+	after  *Node
+	value  any
 }
 
 func (h *HashLinkLru) initNode(key string, value any) *Node {
